@@ -13,17 +13,25 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import control.ConvertTxtToZvp;
+import control.DeleteFile;
+import control.ExtrairZipEtiqueta;
+import control.LinkToDown;
+import control.PrintPdf;
+
 public class AbrirLink {
 	
+	DeleteFile del = new DeleteFile();
+	LinkToDown linkDown = new LinkToDown();
+	ExtrairZipEtiqueta ext = new ExtrairZipEtiqueta();
+	ConvertTxtToZvp c = new ConvertTxtToZvp();
+	PrintPdf impDesk = new PrintPdf();
+	
 	JFrame frameInit = new JFrame("Impressor ZVP-PDF");
-		
-	JTextField txtFieldUrl = new JTextField();
+	
+	JTextField txtFieldUrl = new JTextField("1140227");
 	JLabel lblLink = new JLabel("Insira ou Leia o Numero do Pedido abaixo:");
 	JButton btnSend = new JButton("Enviar");
-	ConvertZvp c = new ConvertZvp();
-	ImprimeDesk impDesk = new ImprimeDesk();
-	ExtrairZip ext = new ExtrairZip();
-	DeleteFiles d = new DeleteFiles();
 	
 	public void criarTela() {
 		frameInit.setSize(650, 190);
@@ -45,20 +53,18 @@ public class AbrirLink {
 		
 		txtFieldUrl.setBounds(16, 110, 600, 25);
 		btnSend.setBounds(16, 60, 150, 25);
-		
 		txtFieldUrl.requestFocus();
-		
-//		ac.ac(txtFldLocalIpServer, btnSend);
 		
 		btnSend.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent launchScn) {
 					try {
-					d.deleteFile();
-					AbrirLink.openWebpage(txtFieldUrl.getText());
-					ext.ext();
-					c.start();
-					impDesk.imprimeDesktop();
-					Thread.sleep(2000);
+					del.deleteFile();//OK
+					linkDown.openAndDownZip(txtFieldUrl.getText(), 0000);//OK
+					ext.extrateZip(3000);
+					c.convertIntoPdf(3000);
+					impDesk.printFileEtiqueta(3000);
+					
+					Thread.sleep(3000);
 					txtFieldUrl.setText("");
 					frameInit.setFocusable(true);
 					txtFieldUrl.requestFocus();
@@ -74,11 +80,12 @@ public class AbrirLink {
 		public void keyPressed(KeyEvent e) {
 			       if(e.getKeyCode() == KeyEvent.VK_ENTER){
 			    	   try {
-			    		   d.deleteFile();
-			    		   AbrirLink.openWebpage(txtFieldUrl.getText());
-			    		   ext.ext();
-							c.start();
-			    		   impDesk.imprimeDesktop();
+			    		   del.deleteFile();//OK
+			    		   linkDown.openAndDownZip(txtFieldUrl.getText(), 0000);//OK
+			    		   ext.extrateZip(3000);
+			    		   c.convertIntoPdf(3000);
+			    		   impDesk.printFileEtiqueta(3000);
+			    		   
 			    		   Thread.sleep(2000);
 			    		   txtFieldUrl.setText("");
 			    		   frameInit.setFocusable(true);
@@ -88,9 +95,6 @@ public class AbrirLink {
 						e1.printStackTrace();
 					}
 					catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (PrintException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
@@ -109,15 +113,6 @@ public class AbrirLink {
 				
 			}
 		});
-	}
-	
-	public static void openWebpage(String urlString) {
-	    try {
-	    	Thread.sleep(1000);
-	        Desktop.getDesktop().browse(new URL("https://www.supermotoshop.com.br/mvc/adm/mercado_livre/etiquetas/imprimir/0/zpl2?pedidos=" + urlString).toURI());
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
 	}
 	
 	public static void main(String[] args) {

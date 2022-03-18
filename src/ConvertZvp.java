@@ -15,7 +15,7 @@ import javax.print.PrintException;
 public class ConvertZvp {
 	
 //	Path path = Paths.get("C:\\Users\\Note\\Desktop\\Etiqueta de envio.txt");
-	Path path = Paths.get("C:\\Users\\Master\\Desktop\\Etiquetas\\Etiqueta de envio.txt");
+//	Path path = Paths.get("C:\\Users\\Super Moto Shop\\Desktop\\Etiquetas\\Etiqueta de envio.txt");
  
         
     
@@ -35,7 +35,7 @@ public class ConvertZvp {
 	
 
 	if (response.statusCode() == 200) {
-	    File file = new File("C:\\Users\\Master\\Desktop\\Etiquetas\\Etiqueta de envio.pdf"); // change file name for PNG images
+	    File file = new File("C:\\Users\\Super Moto Shop\\Desktop\\Etiquetas\\Etiqueta de envio.pdf"); // change file name for PNG images
 	    Files.write(file.toPath(), body);
 	} else {
 	    String errorMessage = new String(body, StandardCharsets.UTF_8);

@@ -1,3 +1,4 @@
+package control;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -5,36 +6,37 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import model.FileModel;
+import model.PathModel;
  
-public class ExtrairZip {
+public class ExtrairZipEtiqueta {
  
 	private static final int BUFFER = 2048;
  
-	public void ext() {
+	public void extrateZip(Integer waitTime) {
+		
+		try {
+			Thread.sleep(waitTime);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}		
+		FileModel fl = new FileModel();
+		String zipFile = fl.getFl1().toString();
+		String pastaDestino = PathModel.PATH_ETIQUETA;
 			try {
-			Thread.sleep(3000);
-			// Caminho do arquivo ZIP
-			String zipFile = "C:\\Users\\Master\\Desktop\\DownZip\\etiquetas.zip";
-			String pastaDestino = "C:\\Users\\Master\\Desktop\\Etiquetas\\";
- 
 			File file = new File(pastaDestino);
- 
-			// Se não existir a pasta destino
-			// será criada por nosso programa
 			if (file.exists() == false) {
 				file.mkdirs();
 			}
- 
+			
 			BufferedOutputStream dest = null;
 			FileInputStream fis = new FileInputStream(zipFile);
-			ZipInputStream zis = new ZipInputStream(
-					new BufferedInputStream(fis));
+			ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 			ZipEntry entry;
 			while ((entry = zis.getNextEntry()) != null) {
-//				System.out.println("Extraindo o arquivo: " + entry);
 				int count;
 				byte data[] = new byte[BUFFER];
-				// Cria os arquivos no disco
 				FileOutputStream fos = new FileOutputStream(pastaDestino + entry.getName());
 				dest = new BufferedOutputStream(fos, BUFFER);
 				while ((count = zis.read(data, 0, BUFFER)) != -1) {
@@ -49,9 +51,4 @@ public class ExtrairZip {
 				e.printStackTrace();
 			}
 	}
-	
-//	public static void main(String[] args) {
-//		ExtrairZip e = new ExtrairZip();
-//		e.ext();
-//	}
 }

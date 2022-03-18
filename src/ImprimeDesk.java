@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class ImprimeDesk {
 	
-	String caminhoArquivo = "C:\\Users\\Master\\Desktop\\Etiquetas\\Etiqueta de envio.pdf";
+	String caminhoArquivo = "C:\\Users\\Super Moto Shop\\Desktop\\Etiquetas\\Etiqueta de envio.pdf";
 	
 	public void imprimeDesktop() throws InterruptedException {
 		
